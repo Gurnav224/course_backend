@@ -10,14 +10,14 @@ export default [
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        project: './tsconfig.eslint.json'
-      }
+        project: './tsconfig.eslint.json',
+      },
     },
     plugins: {
-      '@typescript-eslint': tsPlugin
+      '@typescript-eslint': tsPlugin,
     },
     rules: {
-      ...tsPlugin.configs.recommended.rules
-    }
-  }
+      ...tsPlugin.configs.recommended.rules,
+    },
+  },
 ];

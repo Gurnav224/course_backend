@@ -1,9 +1,10 @@
-import mongoose from 'mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
-import { afterAll, beforeAll, expect, describe, it } from 'vitest';
-import { connectDB } from '../src/config/db';
-import process from 'process';
 import console from 'console';
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import mongoose from 'mongoose';
+import process from 'process';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+
+import { connectDB } from '../src/config/db';
 
 let mongoServer: MongoMemoryServer;
 

@@ -3,12 +3,20 @@
     "target": "es2022",
     "module": "es2022",
     "moduleResolution": "node",
+    "keyofStringsOnly": false,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "plugins": [
+      {
+        "name": "ts-plugin-sort-import-suggestions",
+        "moveUpPatterns": ["@/", "\\.{1,2}/"],
+        "moveDownPatterns": ["dist"]
+      }
+    ]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

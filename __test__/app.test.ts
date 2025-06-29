@@ -1,6 +1,6 @@
+import request from 'supertest';
 import { describe, expect, it } from 'vitest';
 import app from '../src/index';
-import request from 'supertest';
 
 describe('Express App', () => {
   it('should return 200 and home routes', async () => {

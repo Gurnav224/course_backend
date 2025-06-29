@@ -11,10 +11,11 @@
     "test:watch": "bun test --watch --verbose",
     "test:coverage": "vitest run --coverage",
     "test:staged": "vitest related --passWithNoTests --run",
-    "lint": "eslint .",
-    "format": "prettier --write ."
+    "lint": "bunx biome lint --write",
+    "format": "bunx biome format --write"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.0.6",
     "@eslint/js": "^9.30.0",
     "@types/bun": "latest",
     "@types/express": "^5.0.3",
@@ -28,6 +29,7 @@
     "eslint-config-prettier": "^10.1.5",
     "happy-dom": "^18.0.1",
     "husky": "^9.1.7",
+    "import-sort-parser-typescript": "^6.0.0",
     "lint-staged": "^16.1.2",
     "prettier": "^3.6.2",
     "supertest": "^7.1.1",
@@ -39,16 +41,23 @@
   "dependencies": {
     "express": "^5.1.0",
     "mongodb-memory-server": "^10.1.4",
-    "mongoose": "^8.16.1"
+    "mongoose": "^8.16.1",
+    "ts-plugin-sort-import-suggestions": "^1.0.4"
   },
   "lint-staged": {
-    "*.ts": [
-      "prettier --write",
-      "eslint --fix",
-      "bun run test:staged"
-    ],
-    "**/__tests__/**/*.test.ts": [
-      "bun run test:staged"
-    ]
+    "*.ts": ["prettier --write", "eslint --fix", "bun run test:staged"],
+    "**/__tests__/**/*.test.ts": ["bun run test:staged"]
+  },
+  "importSort": {
+    ".js, .jsx, .es6, .es": {
+      "parser": "babylon",
+      "style": "eslint",
+      "options": {}
+    },
+    ".ts, .tsx": {
+      "parser": "typescript",
+      "style": "eslint",
+      "options": {}
+    }
   }
 }

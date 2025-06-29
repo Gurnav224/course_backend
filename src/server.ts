@@ -1,4 +1,6 @@
-/* eslint-disable no-undef */
+import console from 'console';
+import process from 'process';
+
 import app from '../src/index';
 import { connectDB } from './config/db';
 
