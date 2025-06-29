@@ -1,0 +1,11 @@
+@base_url = http://localhost:8080
+
+
+### / Route
+
+GET  {{base_url}}
+
+### / heath
+
+GET  {{base_url}}/health
+
