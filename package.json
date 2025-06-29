@@ -10,7 +10,7 @@
     "test": "vitest",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:staged":"vitest run --passWithNoTests",
+    "test:staged":"vitest related --passWithNoTests",
     "lint": "eslint .",
     "format": "prettier --write .",
     "prepare": "husky",
