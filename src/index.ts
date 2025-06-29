@@ -7,10 +7,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req: Request, res: Response) => {
-  res.status(200).json({ message: 'The app is running' });
-});
-
-app.get('/health', (req: Request, res: Response) => {
   const serverDetails = {
     hostname: os.hostname(),
     platform: os.platform(),
@@ -21,10 +17,11 @@ app.get('/health', (req: Request, res: Response) => {
       free: os.freemem(),
     },
   };
+  res.status(200).json({ message: 'The app is running', server: serverDetails });
+});
 
-  res
-    .status(200)
-    .json({ status: 'ok', message: 'server health information', server: serverDetails });
+app.get('/health', (req: Request, res: Response) => {
+  res.status(200).json({ status: 'ok', message: 'server health information' });
 });
 
 export default app;
