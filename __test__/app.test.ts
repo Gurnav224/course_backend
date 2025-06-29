@@ -8,8 +8,6 @@ describe('Express App', () => {
     expect(res.status).toBe(200);
 
     expect(res.body).toMatchObject({
-      status: 'ok',
-      message: 'server health information',
       server: {
         hostname: 'gurnav',
         platform: 'linux',

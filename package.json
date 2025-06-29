@@ -5,21 +5,20 @@
   "private": true,
   "scripts": {
     "start": "bun run src/server.ts",
-    "dev": "bun --watch src/server.ts",
-    "build":"tsc",
-    "test": "vitest",
-    "test:watch": "vitest",
+    "dev": "bun --hot src/server.ts",
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "bun test --watch --verbose",
     "test:coverage": "vitest run --coverage",
-    "test:staged":"vitest related --passWithNoTests --run",
+    "test:staged": "vitest related --passWithNoTests --run",
     "lint": "eslint .",
-    "format": "prettier --write .",
-    "prepare": "husky",
-    "postinstall": "bun run prepare"
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@eslint/js": "^9.30.0",
     "@types/bun": "latest",
     "@types/express": "^5.0.3",
+    "@types/mongoose": "^5.11.97",
     "@types/node": "^24.0.7",
     "@types/supertest": "^6.0.3",
     "@typescript-eslint/eslint-plugin": "^8.35.0",
@@ -38,13 +37,18 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mongodb-memory-server": "^10.1.4",
+    "mongoose": "^8.16.1"
   },
   "lint-staged": {
     "*.ts": [
-      "bun run test:staged",
+      "prettier --write",
       "eslint --fix",
-      "prettier --write"
+      "bun run test:staged"
+    ],
+    "**/__tests__/**/*.test.ts": [
+      "bun run test:staged"
     ]
   }
 }
