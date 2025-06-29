@@ -10,7 +10,7 @@
     "test": "vitest",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:staged":"vitest related --passWithNoTests",
+    "test:staged":"vitest related --passWithNoTests --run",
     "lint": "eslint .",
     "format": "prettier --write .",
     "prepare": "husky",
@@ -42,8 +42,8 @@
   },
   "lint-staged": {
     "*.ts": [
-      "eslint --fix",
       "bun run test:staged",
+      "eslint --fix",
       "prettier --write"
     ]
   }

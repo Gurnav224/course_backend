@@ -6,15 +6,7 @@ describe('Express App', () => {
   it('should return 200 and home routes', async () => {
     const res = await request(app).get('/');
     expect(res.status).toBe(200);
-  });
-});
 
-describe('Check API Health', () => {
-  it('should return status 200 for health check and os information', async () => {
-    const res = await request(app).get('/health');
-
-    expect(res.status).toBe(200);
-    expect(res.body.status).toBe('ok');
     expect(res.body).toMatchObject({
       status: 'ok',
       message: 'server health information',
@@ -24,5 +16,14 @@ describe('Check API Health', () => {
         arch: 'x64',
       },
     });
+  });
+});
+
+describe('Check API Health', () => {
+  it('should return status 200 for health check and os information', async () => {
+    const res = await request(app).get('/health');
+
+    expect(res.status).toBe(200);
+    expect(res.body.status).toBe('ok');
   });
 });
