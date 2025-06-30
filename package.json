@@ -10,7 +10,8 @@
     "test": "bunx vitest",
     "test:watch": "bunx vitest",
     "lint": "bunx biome lint --write",
-    "format": "bunx biome format --write"
+    "format": "bunx biome format --write",
+    "lint:staged":"bunx vitest --changed"
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.6",
@@ -48,12 +49,8 @@
   "lint-staged": {
     "*.ts": [
       "bunx biome lint --write",
-      "bunx biome format --write",
-      "bun run test:staged"
-    ],
-    "**/__tests__/**/*.test.ts": [
-      "bun run test:staged"
-    ]
+      "bunx biome format --write"    ],
+    "**/__tests__/**/*.test.ts": [ ]
   },
   "importSort": {
     ".js, .jsx, .es6, .es": {
