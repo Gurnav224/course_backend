@@ -23,3 +23,7 @@ Content-Type: application/json
     "description": "Introduction to data analysis, visualization, and machine learning concepts using Python.",
     "prerequisites": "Python programming basics"
   }
+
+### get all the coures
+GET {{base_url}}/api/v1/courses
+Content-Type: application/json

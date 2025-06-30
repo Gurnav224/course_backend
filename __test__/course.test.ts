@@ -54,3 +54,12 @@ describe('POST /api/v1/courses - Create Course', () => {
     await request.post('/api/v1/courses').send(courseData).expect(400);
   });
 });
+
+describe('GET /api/v1/courses get all the coures', () => {
+  it('get all courses', async () => {
+    const response = await request.get('/api/v1/courses');
+
+    expect(response.status).toBe(200);
+    expect(response.body.data.length).toBe(1);
+  });
+});
