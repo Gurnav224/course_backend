@@ -27,3 +27,9 @@ Content-Type: application/json
 ### get all the coures
 GET {{base_url}}/api/v1/courses
 Content-Type: application/json
+
+
+
+### get course by id
+GET {{base_url}}/api/v1/courses/6862173c4f013d605d1711af
+Content-Type: application/json

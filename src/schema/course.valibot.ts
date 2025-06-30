@@ -1,3 +1,4 @@
+import { create } from 'domain';
 import * as v from 'valibot';
 
 export const CourseSchema = v.object({
