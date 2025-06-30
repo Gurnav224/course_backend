@@ -1,8 +1,11 @@
 import type { NextFunction, Request, Response } from 'express';
-import { AnySchema, parse, ValiError } from 'valibot';
+import { BaseIssue, BaseSchema, parse, ValiError } from 'valibot';
 
-// Use a generic tied to Valibot's schema type
-export function validate(schema: AnySchema) {
+export function validate<
+  TInput = unknown,
+  TOutput = unknown,
+  TIssue extends BaseIssue<unknown> = BaseIssue<unknown>,
+>(schema: BaseSchema<TInput, TOutput, TIssue>) {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       req.body = parse(schema, req.body);
