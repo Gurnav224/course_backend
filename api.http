@@ -9,3 +9,17 @@ GET  {{base_url}}
 
 GET  {{base_url}}/health
 
+
+### create new course
+
+POST  {{base_url}}/api/v1/courses
+Content-Type: application/json
+
+ {
+    "title": "Data Science Fundamentals",
+    "instructor": "Dr. Emily Wong",
+    "duration": "10 weeks",
+    "mode": "offline",
+    "description": "Introduction to data analysis, visualization, and machine learning concepts using Python.",
+    "prerequisites": "Python programming basics"
+  }

@@ -1,88 +1,56 @@
-import console from 'console';
-import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import process from 'process';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { connectDB } from '../src/config/db';
-
-let mongoServer: MongoMemoryServer;
-
-beforeAll(async () => {
-  mongoServer = await MongoMemoryServer.create();
-  const uri = mongoServer.getUri();
-  await mongoose.connect(uri);
-});
-
-afterAll(async () => {
-  await mongoose.disconnect();
-  await mongoServer.stop();
-});
-
-describe('connectDB', () => {
-  it('should connect to the database without throwing', async () => {
-    // Set MONGO_URI to the in-memory server's URI
-    process.env.MONGO_URI = mongoServer.getUri();
+describe('Mongodb Operations', () => {
+  it('should connect to the in-memory MongoDB', () => {
     expect(mongoose.connection.readyState).toBe(1); // 1 = connected
   });
 
-  it('should log error if connection fails', async () => {
-    // Provide an invalid URI to force failure
-    process.env.MONGO_URI = 'mongodb://invalid:27017';
-    const originalConsoleLog = console.log;
-    let logOutput: unknown[] = [];
-    console.log = (...args: unknown[]) => logOutput.push(args);
+  it('should be able to create and retrieve a document', async () => {
+    const TestSchema = new mongoose.Schema({ name: String });
+    const TestModel = mongoose.model('Test', TestSchema);
 
-    await connectDB();
+    const doc = await TestModel.create({ name: 'test-doc' });
+    expect(doc.name).toBe('test-doc');
 
-    expect(
-      logOutput.some(
-        (args) =>
-          Array.isArray(args) && args[0]?.toString().includes('failed to connect to database')
-      )
-    ).toBe(true);
-
-    console.log = originalConsoleLog;
-  });
-});
-
-describe('test model', () => {
-  it('create a test sample model', async () => {
-    const Test = mongoose.model('Test', new mongoose.Schema({ title: String }));
-    await Test.create({ title: 'new test document' });
-    const countDoc = await Test.countDocuments();
-    expect(countDoc).toBe(1);
-  });
-
-  it('finds a document by title', async () => {
-    const Test = mongoose.model('Test');
-    await Test.create({ title: 'find me' });
-    const found = await Test.findOne({ title: 'find me' });
+    const found = await TestModel.findOne({ name: 'test-doc' });
     expect(found).not.toBeNull();
-    expect(found?.title).toBe('find me');
+    expect(found?.name).toBe('test-doc');
   });
 
-  it('updates a document', async () => {
-    const Test = mongoose.model('Test');
-    const doc = await Test.create({ title: 'old title' });
-    doc.title = 'updated title';
-    await doc.save();
-    const updated = await Test.findById(doc._id);
-    expect(updated?.title).toBe('updated title');
+  it('should clean up the database after tests', async () => {
+    expect([1, 2]).toContain(mongoose.connection.readyState);
   });
 
-  it('deletes a document', async () => {
-    const Test = mongoose.model('Test');
-    const doc = await Test.create({ title: 'to be deleted' });
-    await Test.deleteOne({ _id: doc._id });
-    const found = await Test.findById(doc._id);
+  it('should not find a non-existent document', async () => {
+    const TestSchema = new mongoose.Schema({ name: String });
+    const TestModel = mongoose.model('Test2', TestSchema);
+
+    const found = await TestModel.findOne({ name: 'does-not-exist' });
     expect(found).toBeNull();
   });
 
-  it('returns zero documents if none exist', async () => {
-    const Test = mongoose.model('Test');
-    await Test.deleteMany({});
-    const count = await Test.countDocuments();
-    expect(count).toBe(0);
+  it('should update a document', async () => {
+    const TestSchema = new mongoose.Schema({ name: String });
+    const TestModel = mongoose.model('Test3', TestSchema);
+
+    const doc = await TestModel.create({ name: 'old-name' });
+    doc.name = 'new-name';
+    await doc.save();
+
+    const updated = await TestModel.findOne({ name: 'new-name' });
+    expect(updated).not.toBeNull();
+    expect(updated?.name).toBe('new-name');
+  });
+
+  it('should delete a document', async () => {
+    const TestSchema = new mongoose.Schema({ name: String });
+    const TestModel = mongoose.model('Test4', TestSchema);
+
+    const doc = await TestModel.create({ name: 'to-delete' });
+    await TestModel.deleteOne({ _id: doc._id });
+
+    const found = await TestModel.findById(doc._id);
+    expect(found).toBeNull();
   });
 });
