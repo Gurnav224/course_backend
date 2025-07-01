@@ -11,13 +11,14 @@
     "test:watch": "bunx vitest",
     "lint": "bunx biome lint --write",
     "format": "bunx biome format --write",
-    "lint:staged":"bunx vitest --changed",
+    "lint:staged": "bunx vitest --changed",
     "prepare": "husky"
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.6",
     "@eslint/js": "^9.30.0",
     "@types/bun": "latest",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.10",
@@ -40,6 +41,7 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.1.0",
     "mongodb-memory-server": "^10.1.4",
     "mongoose": "^8.16.1",
@@ -50,8 +52,9 @@
   "lint-staged": {
     "*.ts": [
       "bunx biome lint --write",
-      "bunx biome format --write"    ],
-    "**/__tests__/**/*.test.ts": [ "bun run test" ]
+      "bunx biome format --write"
+    ],
+    "**/__tests__/**/*.test.ts": ["bun run test"]
   },
   "importSort": {
     ".js, .jsx, .es6, .es": {

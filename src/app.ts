@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import morgan from 'morgan';
 import os from 'os';
+import cors from 'cors';
 import courseRouter from './routes/course.routes';
 
 const app: Application = express();
@@ -8,6 +9,12 @@ const app: Application = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
+app.use(
+  cors({
+    origin: '*',
+    optionsSuccessStatus: 200,
+  })
+);
 
 app.get('/', (_req: Request, res: Response) => {
   const serverDetails = {

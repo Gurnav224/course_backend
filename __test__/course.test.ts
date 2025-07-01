@@ -1,3 +1,4 @@
+import console from 'console';
 import mongoose from 'mongoose';
 import supertest from 'supertest';
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest';
@@ -101,6 +102,7 @@ describe('GET /api/v1/courses/:id - Get course by ID', () => {
     expect(res.body.data._id).toBe(course._id.toString());
     expect(res.body.data.title).toBe(course.title);
     expect(res.body.data.mode).toBe('offline');
+    expect(res.body.data).toHaveProperty('duration');
   });
 
   it('returns 404 for non-existent ID', async () => {
