@@ -31,5 +31,10 @@ Content-Type: application/json
 
 
 ### get course by id
-GET {{base_url}}/api/v1/courses/6862173c4f013d605d1711af
+GET {{base_url}}/api/v1/courses/6862be396c8ed99a065938ca
+Content-Type: application/json
+
+### Delete coures by id
+
+DELETE  {{base_url}}/api/v1/courses/6862be396c8ed99a065938ca
 Content-Type: application/json

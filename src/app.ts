@@ -1,7 +1,7 @@
+import cors from 'cors';
 import express, { Application, Request, Response } from 'express';
 import morgan from 'morgan';
 import os from 'os';
-import cors from 'cors';
 import courseRouter from './routes/course.routes';
 
 const app: Application = express();
